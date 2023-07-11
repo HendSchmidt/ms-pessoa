@@ -1,5 +1,7 @@
 package br.com.estudo.pessoas.microservico.controller.escrita;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class PessoaEscritaController {
 	private PessoaService service;
 	
 	@PostMapping
-	public ResponseEntity<String> listar(@Valid @RequestBody PessoaDto dto) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.cadastrar(dto));
+	public ResponseEntity<String> listar(@Valid @RequestBody List<PessoaDto> lsDto) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.cadastrar(lsDto));
 	}
 }

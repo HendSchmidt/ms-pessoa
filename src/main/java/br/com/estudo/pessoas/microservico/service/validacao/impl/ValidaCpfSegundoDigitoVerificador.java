@@ -23,7 +23,7 @@ public class ValidaCpfSegundoDigitoVerificador extends ValidacaoCpf {
 	public Map<Boolean, String> validaCpf(PessoaDto dto) {
 		log.info("[5] Validando segundo digito verificador.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
-		cpfValidado.put(Boolean.FALSE.equals(verificaDigito(dto.getCdCpf(), 11, 10)), "Cpf informado possui segundo digito verificador invalido.");
+		cpfValidado.put(Boolean.FALSE.equals(verificaDigito(dto.getCdCpf(), 11, 10)), "Cpf informado possui segundo digito verificador invalido. CPF [" + dto.getCdCpf() + "]");
 
 		return cpfValidado;
 	}

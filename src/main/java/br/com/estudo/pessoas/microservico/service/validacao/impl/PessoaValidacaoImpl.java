@@ -19,7 +19,7 @@ public class PessoaValidacaoImpl implements PessoaValidacao {
 
 	@Override
 	public void validar(PessoaDto dto) {
-		log.info("Iniciando cadeia para validação do CPF.");
+		log.info("Iniciando cadeia para validação da pessoa nome: {}, CPF: {} ", dto.getNmNome(), dto.getCdCpf());
 		validacaoCpf = new ValidaCpfCaracteresEspeciais(
 				new ValidaCpfPossui11Digitos(
 						new ValidaCpfDigitosIguais(

@@ -23,7 +23,7 @@ public class ValidaCpfPossui11Digitos extends ValidacaoCpf {
 	public Map<Boolean, String> validaCpf(PessoaDto dto) {
 		log.info("[2] Validando se o cpf possui 11 digitos.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
-		cpfValidado.put(dto.getCdCpf().length() != 11, "Cpf informado não poder ter mais ou menos que 11 digitos.");
+		cpfValidado.put(dto.getCdCpf().length() != 11, "CPF informado não poder ter mais ou menos que 11 digitos. CPF [" + dto.getCdCpf() + "]" );
 
 		return cpfValidado;
 	}

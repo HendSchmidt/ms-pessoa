@@ -9,9 +9,21 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 public class PessoaUtil {
 	public static final String USUARIO_PADRAO = "SISTEMA";
 	public static final String DATETIME_FORMATO = "yyyy-MM-dd HH:mm:ss";
+	private static ObjectMapper mapper;
+	
+	static {
+		mapper = new ObjectMapper();
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		mapper.registerModule(new JavaTimeModule());
+	}
 
 	public static LocalDateTime dateTo(final @NotNull Date entrada) {
 
@@ -26,5 +38,15 @@ public class PessoaUtil {
 
 	public static boolean foraDoRange(final LocalDateTime inicio, final LocalDateTime fim, final LocalDateTime valor) {
 		return nonNull(inicio) && valor.isBefore(inicio) || nonNull(fim) && valor.isAfter(fim);
+	}
+	
+	public static String paraJson(final Object obj) {
+		String jsonFormatado = null;
+		try {
+			jsonFormatado = mapper.writeValueAsString(obj);
+		} catch (final JsonProcessingException e) {
+			throw new PessoaException("Erro ao converter o DTO para Json.", e.getMessage());
+		}
+		return jsonFormatado;
 	}
 }

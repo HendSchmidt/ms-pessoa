@@ -24,7 +24,7 @@ public class ValidaCpfPrimeiroDigitoVerificador extends ValidacaoCpf {
 		
 		log.info("[4] Validando primeiro digito verificador.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
-		cpfValidado.put(Boolean.FALSE.equals(verificaDigito(dto.getCdCpf(), 10, 9)), "Cpf informado possui primeiro digito verificador invalido.");
+		cpfValidado.put(Boolean.FALSE.equals(verificaDigito(dto.getCdCpf(), 10, 9)), "CPF informado possui primeiro digito verificador invalido. CPF [" + dto.getCdCpf() + "]");
 
 		return cpfValidado;
 	}
