@@ -8,15 +8,15 @@ import org.apache.logging.log4j.Logger;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 
-public class ValidacaoCpfCompleta extends ValidacaoCpf {
+public class ValidacaoCpfCompleta extends CorrenteDeValidacaoDeCpf {
 	private final Logger log = LogManager.getLogger();
 
-	public ValidacaoCpfCompleta(ValidacaoCpf proximo) {
+	public ValidacaoCpfCompleta(CorrenteDeValidacaoDeCpf proximo) {
 		super(null);
 	}
 
 	@Override
-	public Map<Boolean, String> validaCpf(PessoaDto dto) {
+	public Map<Boolean, String> valida(PessoaDto dto) {
 		log.info("[6] Cpf validado com sucesso.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
 		cpfValidado.put(Boolean.FALSE, " ");

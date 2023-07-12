@@ -12,15 +12,15 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
  * @author hendrix.schmidt
  *
  */
-public class ValidaCpfPossui11Digitos extends ValidacaoCpf {
+public class ValidaCpfPossui11Digitos extends CorrenteDeValidacaoDeCpf {
 	private final Logger log = LogManager.getLogger();
 	
-	public ValidaCpfPossui11Digitos(ValidacaoCpf proximo) {
+	public ValidaCpfPossui11Digitos(CorrenteDeValidacaoDeCpf proximo) {
 		super(proximo);
 	}
 
 	@Override
-	public Map<Boolean, String> validaCpf(PessoaDto dto) {
+	public Map<Boolean, String> valida(PessoaDto dto) {
 		log.info("[2] Validando se o cpf possui 11 digitos.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
 		cpfValidado.put(dto.getCdCpf().length() != 11, "CPF informado não poder ter mais ou menos que 11 digitos. CPF [" + dto.getCdCpf() + "]" );

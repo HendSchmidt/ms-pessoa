@@ -12,15 +12,15 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
  * @author hendrix.schmidt
  *
  */
-public class ValidaCpfCaracteresEspeciais  extends ValidacaoCpf {
+public class ValidaCpfCaracteresEspeciais  extends CorrenteDeValidacaoDeCpf {
 	private final Logger log = LogManager.getLogger();
 	
-	public ValidaCpfCaracteresEspeciais(ValidacaoCpf proximo) {
+	public ValidaCpfCaracteresEspeciais(CorrenteDeValidacaoDeCpf proximo) {
 		super(proximo);
 	}
 
 	@Override
-	public Map<Boolean, String> validaCpf(PessoaDto dto) {
+	public Map<Boolean, String> valida(PessoaDto dto) {
 		log.info("[1] Validando caracteres especiais.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
 		final String REGEX_VALIDACAO_CARACTERES_ESPECIAIS_CPF = "[^0-9]";

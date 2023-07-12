@@ -12,15 +12,15 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
  * @author hendrix.schmidt
  *
  */
-public class ValidaCpfPrimeiroDigitoVerificador extends ValidacaoCpf {
+public class ValidaCpfPrimeiroDigitoVerificador extends CorrenteDeValidacaoDeCpf {
 	private final Logger log = LogManager.getLogger();
 	
-	public ValidaCpfPrimeiroDigitoVerificador(ValidacaoCpf proximo) {
+	public ValidaCpfPrimeiroDigitoVerificador(CorrenteDeValidacaoDeCpf proximo) {
 		super(proximo);
 	}
 
 	@Override
-	public Map<Boolean, String> validaCpf(PessoaDto dto) {
+	public Map<Boolean, String> valida(PessoaDto dto) {
 		
 		log.info("[4] Validando primeiro digito verificador.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();

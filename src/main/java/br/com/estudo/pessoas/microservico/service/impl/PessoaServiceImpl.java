@@ -12,7 +12,7 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 import br.com.estudo.pessoas.microservico.mapper.PessoaMapper;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
 import br.com.estudo.pessoas.microservico.service.PessoaService;
-import br.com.estudo.pessoas.microservico.service.validacao.PessoaValidacao;
+import br.com.estudo.pessoas.microservico.service.validacao.impl.PessoaValidacao;
 import br.com.estudo.pessoas.microservico.util.PessoaException;
 
 /**

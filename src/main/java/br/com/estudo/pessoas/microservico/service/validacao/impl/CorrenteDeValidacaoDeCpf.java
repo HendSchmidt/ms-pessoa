@@ -10,17 +10,17 @@ import br.com.estudo.pessoas.microservico.util.PessoaException;
  * @author hendrix.schmidt
  *
  */
-public abstract class ValidacaoCpf {
+public abstract class CorrenteDeValidacaoDeCpf {
 	
-	protected ValidacaoCpf proximo;
+	protected CorrenteDeValidacaoDeCpf proximo;
 	
-	public ValidacaoCpf(ValidacaoCpf proximo) {
+	public CorrenteDeValidacaoDeCpf(CorrenteDeValidacaoDeCpf proximo) {
 		super();
 		this.proximo = proximo;
 	}
 
 	public void validar(PessoaDto dto) {
-		final Map<Boolean, String> cpfValidado = validaCpf(dto);
+		final Map<Boolean, String> cpfValidado = valida(dto);
 		if(cpfValidado.containsKey(true)) {
 			throw new PessoaException(cpfValidado.get(true));
 		}
@@ -29,7 +29,7 @@ public abstract class ValidacaoCpf {
 			proximo.validar(dto);
 	}
 	
-	public abstract Map<Boolean, String> validaCpf(PessoaDto dto);
+	public abstract Map<Boolean, String> valida(PessoaDto dto);
 
 	protected boolean verificaDigito(String cpf, int peso, int posicaoDigito) {
 		int digitoCalculado = calcularDigitoVerificador(cpf.substring(0, posicaoDigito), peso);

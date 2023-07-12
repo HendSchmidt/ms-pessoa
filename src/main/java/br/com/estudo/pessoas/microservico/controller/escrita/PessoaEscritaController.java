@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 import br.com.estudo.pessoas.microservico.service.PessoaService;
 
+/**
+ * @author hendrix.schmidt
+ *
+ */
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaEscritaController {
