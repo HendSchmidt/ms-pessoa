@@ -18,7 +18,8 @@ public class ValidadorDeCpf implements ValidadorDeDadosDePessoa {
 	private CorrenteDeValidacaoDeCpf validacao;
 
 	@Override
-	public void validar(PessoaDto dto) {
+	public String validar(PessoaDto dto) {
+		final String erro;
 		log.info("Iniciando cadeia para validação da pessoa nome: {}, CPF: {} ", dto.getNmNome(), dto.getCdCpf());
 		validacao = new ValidaCpfCaracteresEspeciais(
 				new ValidaCpfPossui11Digitos(
@@ -27,10 +28,10 @@ public class ValidadorDeCpf implements ValidadorDeDadosDePessoa {
 										new ValidaCpfSegundoDigitoVerificador(
 												new ValidacaoCpfCompleta(null))))));
 
-		validacao.validar(dto);
-		
-		
+		erro = validacao.validar(dto);
 		log.info("Finalizando cadeia para validação do CPF.");
+		
+		return erro;
 	}
 
 }

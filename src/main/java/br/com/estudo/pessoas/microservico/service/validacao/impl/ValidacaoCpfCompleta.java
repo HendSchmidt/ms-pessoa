@@ -19,7 +19,7 @@ public class ValidacaoCpfCompleta extends CorrenteDeValidacaoDeCpf {
 	public Map<Boolean, String> valida(PessoaDto dto) {
 		log.info("[6] Cpf validado com sucesso.");
 		Map<Boolean, String> cpfValidado = new HashMap<>();
-		cpfValidado.put(Boolean.FALSE, " ");
+		cpfValidado.put(Boolean.TRUE, "");
 		return cpfValidado;
 	}
 

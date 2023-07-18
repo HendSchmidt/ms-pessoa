@@ -1,6 +1,7 @@
 package br.com.estudo.pessoas.microservico.controller.escrita;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -27,7 +28,7 @@ public class PessoaEscritaController {
 	private PessoaService service;
 	
 	@PostMapping
-	public ResponseEntity<String> listar(@Valid @RequestBody List<PessoaDto> lsDto) {
+	public ResponseEntity<Map<String, List<String>>> listar(@Valid @RequestBody List<PessoaDto> lsDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(lsDto));
 	}
 }

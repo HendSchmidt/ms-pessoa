@@ -20,12 +20,15 @@ public class ValidadorBO implements ValidadorDeRegrasDeNegocio {
 	private CorrenteDeValidacaoBO validacao;
 	
 	@Override
-	public void validar(PessoaDto dto,  PessoaRepository repository) {
+	public String validar(PessoaDto dto,  PessoaRepository repository) {
+		final String erro;
 		log.info("Iniciando cadeia de validação para regras de negocio ");
 		validacao = new ValidaSePessoaJaExiste(null);
 		
-		validacao.validar(dto, repository);
+		erro = validacao.validar(dto, repository);
 		log.info("Finalizando cadeia de validação para regras de negocio.");
+		
+		return erro;
 	}
 
 }

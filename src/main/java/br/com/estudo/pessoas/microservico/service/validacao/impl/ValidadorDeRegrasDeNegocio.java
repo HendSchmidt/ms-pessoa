@@ -14,5 +14,5 @@ public interface ValidadorDeRegrasDeNegocio {
 	 * 
 	 * @param dto
 	 */
-	void validar(PessoaDto dto,  PessoaRepository repository);
+	String validar(PessoaDto dto,  PessoaRepository repository);
 }

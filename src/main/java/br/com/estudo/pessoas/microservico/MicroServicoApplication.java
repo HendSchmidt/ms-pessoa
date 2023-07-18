@@ -2,7 +2,6 @@ package br.com.estudo.pessoas.microservico;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(scanBasePackages = "br.com.estudo.pessoas.microservico")
 public class MicroServicoApplication {

@@ -1,6 +1,8 @@
 package br.com.estudo.pessoas.microservico.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +35,8 @@ public class PessoaServiceImpl implements PessoaService {
 	@Autowired
 	private PessoaRepository repository;
 
+	private Map<String, List<String>> retorno;
+	
 	@Override
 	public List<PessoaDto> listar() {
 		log.info("Recuperando doados de pessoas.");
@@ -40,15 +44,23 @@ public class PessoaServiceImpl implements PessoaService {
 	}
 
 	@Override
-	public String cadastrar(final List<PessoaDto> lsDto) {
+	public Map<String, List<String>> cadastrar(final List<PessoaDto> lsDto) {
+		retorno = new HashMap<>();
 		log.info("Iniciando cadastro de pessoa(s).");
 		lsDto.parallelStream().forEachOrdered(dto -> {
-			validacao.validar(dto, repository);
-			
-			repository.criar(mapper.mapear(dto));
+			List<String> erro = validacao.validar(dto, repository);
+
+			if (erro.isEmpty()) {
+				repository.criar(mapper.mapear(dto));
+				erro.add("Pessoa cadastrada com sucesso");
+				retorno.put(dto.getCdCpf(), erro);
+			}
+
+			retorno.put(dto.getCdCpf(), erro);
+
 		});
 
-		return "Pessoa(s) cadastrada(s) com sucesso.";
+		return retorno;
 	}
 
 	@Override

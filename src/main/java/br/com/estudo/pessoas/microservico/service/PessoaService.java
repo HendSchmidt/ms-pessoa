@@ -1,6 +1,7 @@
 package br.com.estudo.pessoas.microservico.service;
 
 import java.util.List;
+import java.util.Map;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 
@@ -31,6 +32,6 @@ public interface PessoaService {
 	 * @param dto
 	 * @return
 	 */
-	String cadastrar(final List<PessoaDto> lsDto);
+	Map<String, List<String>> cadastrar(final List<PessoaDto> lsDto);
 
 }
