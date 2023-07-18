@@ -28,6 +28,6 @@ public class PessoaEscritaController {
 	
 	@PostMapping
 	public ResponseEntity<String> listar(@Valid @RequestBody List<PessoaDto> lsDto) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.cadastrar(lsDto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrar(lsDto));
 	}
 }

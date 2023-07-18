@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
-import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDePessoa;
+import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePessoa;
 import br.com.estudo.pessoas.microservico.util.PessoaException;
 
 /**
@@ -13,7 +13,7 @@ import br.com.estudo.pessoas.microservico.util.PessoaException;
  *
  */
 @Service
-public class ValidadorDeNome implements ValidadorDePessoa {
+public class ValidadorDeNome implements ValidadorDeDadosDePessoa {
 	private static final String REGEX_NAO_CONTEM_CARACTERES_ESPECIAIS = "[a-zA-Z ]+";
 	private final Logger log = LogManager.getLogger();
 	@Override

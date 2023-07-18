@@ -43,7 +43,7 @@ public class PessoaServiceImpl implements PessoaService {
 	public String cadastrar(final List<PessoaDto> lsDto) {
 		log.info("Iniciando cadastro de pessoa(s).");
 		lsDto.parallelStream().forEachOrdered(dto -> {
-			validacao.validar(dto);
+			validacao.validar(dto, repository);
 			
 			repository.criar(mapper.mapear(dto));
 		});

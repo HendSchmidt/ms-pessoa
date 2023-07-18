@@ -20,6 +20,10 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.JdbcRepository;
 import br.com.estudo.pessoas.microservico.domain.jdbc.pessoa.Pessoa;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
 
+/**
+ * @author hendrix.schmidt
+ *
+ */
 @Repository
 @PropertySource("classpath:query/pessoa-sql.properties")
 public class PessoaRepositoryImpl extends JdbcRepository implements PessoaRepository  {
@@ -36,6 +40,9 @@ public class PessoaRepositoryImpl extends JdbcRepository implements PessoaReposi
 	
 	@Value("${SPS.PESSOA}")
 	private String listar;
+	
+	@Value("${SPS.PESSOA.VERIFICA_SE_EXISTE.POR.CD_CPF}")
+	private String verificaSeExistePorCdCpf;
 	
 	@Override
 	public Pessoa criar(final Pessoa entidade) {
@@ -65,6 +72,14 @@ public class PessoaRepositoryImpl extends JdbcRepository implements PessoaReposi
 		
 		return npjt.query(recuperarPorId, parametros, BeanPropertyRowMapper.newInstance(Pessoa.class))
 				.stream().findFirst();
+	}
+	
+	@Override
+	public Boolean verificaSeExistePorCdCpf(final String cdCpf) {
+ 		final MapSqlParameterSource parametros = new MapSqlParameterSource();
+		parametros.addValue("cdCpf", cdCpf);
+		
+		return npjt.queryForObject(verificaSeExistePorCdCpf, parametros, Boolean.class);
 	}
 	
 	@Override

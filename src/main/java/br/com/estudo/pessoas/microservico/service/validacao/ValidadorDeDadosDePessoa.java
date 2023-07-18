@@ -6,9 +6,9 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
  * @author hendrix.schmidt
  *
  */
-public interface ValidadorDePessoa {
+public interface ValidadorDeDadosDePessoa {
 	/**
-	 * Contrato para separar a responsabilidade para cada tipo de validação de pessoa.
+	 * Contrato para separar a responsabilidade para cada tipo de validação de dados da pessoa.
 	 * 
 	 * @param dto
 	 */

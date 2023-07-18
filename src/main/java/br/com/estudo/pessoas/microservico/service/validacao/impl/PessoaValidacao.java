@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
-import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDePessoa;
+import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
+import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePessoa;
 
 /**
  * Responsavel por orquestrar todas as validações de pessoa.
@@ -18,10 +19,15 @@ import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDePessoa;
 public class PessoaValidacao  {
 	
 	@Autowired
-	private List<ValidadorDePessoa> lsPessoaValidacao;
+	private List<ValidadorDeDadosDePessoa> lsPessoaValidacao;
+	
+	@Autowired
+	private List<ValidadorDeRegrasDeNegocio> lsValidacaoBO;
 
-	public void validar(PessoaDto dto) {
+	public void validar(PessoaDto dto, PessoaRepository repository) {
 		lsPessoaValidacao.parallelStream().forEachOrdered(v -> v.validar(dto));
+		
+		lsValidacaoBO.stream().forEachOrdered(v -> v.validar(dto, repository));
 	}
 
 }

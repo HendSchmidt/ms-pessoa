@@ -18,4 +18,6 @@ public interface PessoaRepository {
 
 	List<Pessoa> listar();
 
+	Boolean verificaSeExistePorCdCpf(String cdCpf);
+
 }

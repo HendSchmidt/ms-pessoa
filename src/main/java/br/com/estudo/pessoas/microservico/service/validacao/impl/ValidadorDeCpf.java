@@ -5,14 +5,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
-import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDePessoa;
+import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePessoa;
 
 /**
  * @author hendrix.schmidt
  *
  */
 @Service
-public class ValidadorDeCpf implements ValidadorDePessoa {
+public class ValidadorDeCpf implements ValidadorDeDadosDePessoa {
 	private final Logger log = LogManager.getLogger();
 
 	private CorrenteDeValidacaoDeCpf validacao;
