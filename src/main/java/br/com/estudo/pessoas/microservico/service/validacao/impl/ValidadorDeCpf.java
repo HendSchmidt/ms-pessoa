@@ -5,19 +5,17 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
-import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePessoa;
 
 /**
  * @author hendrix.schmidt
  *
  */
 @Service
-public class ValidadorDeCpf implements ValidadorDeDadosDePessoa {
+public class ValidadorDeCpf {
 	private final Logger log = LogManager.getLogger();
 
 	private CorrenteDeValidacaoDeCpf validacao;
 
-	@Override
 	public void validar(PessoaDto dto) {
 		log.info("Iniciando cadeia para validação da pessoa nome: {}, CPF: {} ", dto.getNmNome(), dto.getCdCpf());
 		validacao = new ValidaCpfCaracteresEspeciais(

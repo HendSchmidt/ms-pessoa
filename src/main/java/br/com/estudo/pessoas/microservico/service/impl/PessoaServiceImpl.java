@@ -1,5 +1,7 @@
 package br.com.estudo.pessoas.microservico.service.impl;
 
+import static java.time.LocalDateTime.now;
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
+import br.com.estudo.pessoas.microservico.domain.jdbc.pessoa.Pessoa;
 import br.com.estudo.pessoas.microservico.mapper.PessoaMapper;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
 import br.com.estudo.pessoas.microservico.service.PessoaService;
@@ -41,16 +44,50 @@ public class PessoaServiceImpl implements PessoaService {
 
 	@Override
 	public String cadastrar(final PessoaDto dto) {
-		log.info("Iniciando cadastro de pessoa(s).");
+		log.info("Iniciando cadastro de pessoa.");
 
-		validacao.validar(dto, repository);
+		validacao.validarParaCriacao(dto, repository);
 		repository.criar(mapper.mapear(dto));
 
-		return "Pessoa(s) cadastrada(s) com sucesso.";
+		return "Pessoa cadastrada com sucesso.";
 	}
 
 	@Override
-	public PessoaDto recuperarPorId(final Long id) {
-		return mapper.mapear(repository.recuperarPorId(id).orElseThrow(() -> new PessoaException("Pessoa não encontrada id: "+ id + ".")));
+	public PessoaDto recuperarPorcdCpf(final String cdCpf) {
+		return mapper.mapear(repository.recuperarPorcdCpf(cdCpf).orElseThrow(() -> new PessoaException("Pessoa não encontrada CPF: "+ cdCpf + ".")));
+	}
+
+	@Override
+	public String atualizar(PessoaDto dto) {
+		log.info("Iniciando atuzalização de pessoa.");
+		
+		validacao.validarParaAtualizacao(dto, repository);
+		repository.atualizar(preparaParaAtualizar(dto));
+		
+		return "Pessoa atualizada com sucesso.";
+	}
+
+	@Override
+	public Object deletar(String cdCpf) {
+		log.info("Iniciando exclusão de pessoa(s).");
+		
+		validacao.validarParaExclusao(preparaParaExcluir(cdCpf), repository);
+		repository.excluirPorCpf(cdCpf);
+		
+		return "Pessoa excluida com sucesso.";
+	}
+
+	private PessoaDto preparaParaExcluir(String cdCpf) {
+		PessoaDto dto = new PessoaDto();
+		dto.setCdCpf(cdCpf);
+		
+		return dto;
+	}
+	
+	private Pessoa preparaParaAtualizar(PessoaDto dto) {
+		final Pessoa entidade = mapper.mapear(dto);
+		entidade.setInAtivo(true);
+		entidade.setDtAlteracao(now());
+		return entidade;
 	}
 }

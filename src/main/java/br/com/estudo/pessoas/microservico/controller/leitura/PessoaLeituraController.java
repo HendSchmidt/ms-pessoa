@@ -25,8 +25,8 @@ public class PessoaLeituraController {
 		return ResponseEntity.status(HttpStatus.OK).body(service.listar());
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<PessoaDto> recuperarPorId(@PathVariable("id") final Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.recuperarPorId(id));
+	@GetMapping("/{cdCpf}")
+	public ResponseEntity<PessoaDto> recuperarPorId(@PathVariable("cdCpf") final String cdCpf) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.recuperarPorcdCpf(cdCpf));
 	}
 }

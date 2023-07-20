@@ -12,12 +12,14 @@ public interface PessoaRepository {
 
 	Pessoa criar(Pessoa entidade);
 
-	Pessoa atualizar(Pessoa entidade);
+	void atualizar(Pessoa entidade);
 
-	Optional<Pessoa> recuperarPorId(Long id);
+	Optional<Pessoa> recuperarPorcdCpf(final String cdCpf);
 
 	List<Pessoa> listar();
 
 	Boolean verificaSeExistePorCdCpf(String cdCpf);
+
+	void excluirPorCpf(String cdCpf);
 
 }

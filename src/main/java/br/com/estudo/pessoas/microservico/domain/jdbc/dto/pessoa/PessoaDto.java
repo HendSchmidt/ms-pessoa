@@ -21,8 +21,6 @@ import br.com.estudo.pessoas.microservico.domain.jdbc.dto.SistemaWebDto;
 public class PessoaDto extends SistemaWebDto {
 	private static final long serialVersionUID = 1L;
 
-	private Long idPessoa;
-	
 	@NotBlank(message = "Nome invalido, não pode ser vazio ou nulo")
 	private String nmNome;
 	
@@ -42,21 +40,12 @@ public class PessoaDto extends SistemaWebDto {
 
 	public PessoaDto(Long idPessoa, String nmNome, String cdCpf, String cdRg, String dtNascimento, String nmSexo,
 			String nmEstadoCivil) {
-		this.idPessoa = idPessoa;
 		this.nmNome = nmNome;
 		this.cdCpf = cdCpf;
 		this.cdRg = cdRg;
 		this.dtNascimento = dtNascimento;
 		this.nmSexo = nmSexo;
 		this.nmEstadoCivil = nmEstadoCivil;
-	}
-
-	public Long getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Long idPessoa) {
-		this.idPessoa = idPessoa;
 	}
 
 	public String getNmNome() {

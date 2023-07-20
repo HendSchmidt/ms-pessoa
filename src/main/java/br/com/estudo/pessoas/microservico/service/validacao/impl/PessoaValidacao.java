@@ -1,13 +1,10 @@
 package br.com.estudo.pessoas.microservico.service.validacao.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
-import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePessoa;
 
 /**
  * Responsavel por orquestrar todas as validações de pessoa.
@@ -19,15 +16,30 @@ import br.com.estudo.pessoas.microservico.service.validacao.ValidadorDeDadosDePe
 public class PessoaValidacao  {
 	
 	@Autowired
-	private List<ValidadorDeDadosDePessoa> lsPessoaValidacao;
+	private ValidadorDeCpf validaCpf;
 	
 	@Autowired
-	private List<ValidadorDeRegrasDeNegocio> lsValidacaoBO;
+	private ValidadorDeNome validaNome;
+	
+	@Autowired
+	private ValidadorBO validadorDeRegraDeNegocio;
 
-	public void validar(PessoaDto dto, PessoaRepository repository) {
-		
-		lsPessoaValidacao.stream().forEachOrdered(v -> v.validar(dto));
-		lsValidacaoBO.stream().forEachOrdered(v -> v.validar(dto, repository));
+	public void validarParaCriacao(PessoaDto dto, PessoaRepository repository) {
+		validaCpf.validar(dto);
+		validaNome.validar(dto);
+		validadorDeRegraDeNegocio.validarParaCriacao(dto, repository);
 	}
+
+	public void validarParaAtualizacao(PessoaDto dto, PessoaRepository repository) {
+		validaCpf.validar(dto);
+		validadorDeRegraDeNegocio.validarParaAtualizacao(dto, repository);
+		
+	}
+
+	public void validarParaExclusao(PessoaDto dto, PessoaRepository repository) {
+		validaCpf.validar(dto);
+		validadorDeRegraDeNegocio.validarParaExclusao(dto, repository);
+	}
+
 
 }

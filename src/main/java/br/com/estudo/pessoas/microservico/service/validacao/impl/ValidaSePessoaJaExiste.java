@@ -9,15 +9,11 @@ import org.apache.logging.log4j.Logger;
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
 
-public class ValidaSePessoaJaExiste extends CorrenteDeValidacaoBO {
+public class ValidaSePessoaJaExiste implements ValidacaoDeNegocio {
 	private final Logger log = LogManager.getLogger();
 	
-	public ValidaSePessoaJaExiste(CorrenteDeValidacaoBO proximo) {
-		super(null);
-	}
-
 	@Override
-	public Map<Boolean, String> valida(PessoaDto dto,  PessoaRepository repository) {
+	public Map<Boolean, String> validar(PessoaDto dto,  PessoaRepository repository) {
 		log.info("[1] Validando se pessoa ja existe na base de dados.");
 		Map<Boolean, String> pessoaValidada = new HashMap<>();
 		

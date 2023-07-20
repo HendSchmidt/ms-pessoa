@@ -35,14 +35,17 @@ public class PessoaRepositoryImpl extends JdbcRepository implements PessoaReposi
 	@Value("${SPU.PESSOA}")
 	private String atualizar;
 	
-	@Value("${SPS.PESSOA.POR.ID}")
-	private String recuperarPorId;
+	@Value("${SPS.PESSOA.POR.CD_CPF}")
+	private String recuperarPorCdCpf;
 	
 	@Value("${SPS.PESSOA}")
 	private String listar;
 	
 	@Value("${SPS.PESSOA.VERIFICA_SE_EXISTE.POR.CD_CPF}")
 	private String verificaSeExistePorCdCpf;
+	
+	@Value("${SPU.PESSOA.EXCLUIR.POR.CD_CPF}")
+	private String excluirPorCdCpf;
 	
 	@Override
 	public Pessoa criar(final Pessoa entidade) {
@@ -59,18 +62,25 @@ public class PessoaRepositoryImpl extends JdbcRepository implements PessoaReposi
 	}
 	
 	@Override
-	public Pessoa atualizar(final Pessoa entidade) {
-		npjt.update(atualizar, new BeanPropertySqlParameterSource(entidade));
-		
-		return entidade;
+	public void atualizar(final Pessoa entidade) {
+		log.info("Atualizando dados da pessoa {}.", entidade.getCdCpf());
+		final MapSqlParameterSource parametros = new MapSqlParameterSource();
+		parametros.addValue("nmNome", entidade.getNmNome());
+		parametros.addValue("cdCpf", entidade.getCdCpf());
+		parametros.addValue("cdRg", entidade.getCdRg());
+		parametros.addValue("dtNascimento", entidade.getDtNascimento());
+		parametros.addValue("nmSexo", entidade.getNmSexo());
+		parametros.addValue("nmEstadoCivil", entidade.getNmEstadoCivil());
+		parametros.addValue("dtAlteracao", entidade.getDtAlteracao());
+		npjt.update(atualizar, parametros);
 	}
 	
 	@Override
-	public Optional<Pessoa> recuperarPorId(final Long id) {
+	public Optional<Pessoa> recuperarPorcdCpf(final String cdCpf) {
  		final MapSqlParameterSource parametros = new MapSqlParameterSource();
-		parametros.addValue("idPessoa", id);
+		parametros.addValue("cdCpf", cdCpf);
 		
-		return npjt.query(recuperarPorId, parametros, BeanPropertyRowMapper.newInstance(Pessoa.class))
+		return npjt.query(recuperarPorCdCpf, parametros, BeanPropertyRowMapper.newInstance(Pessoa.class))
 				.stream().findFirst();
 	}
 	
@@ -85,5 +95,15 @@ public class PessoaRepositoryImpl extends JdbcRepository implements PessoaReposi
 	@Override
 	public List<Pessoa> listar() {
 		return npjt.query(listar, BeanPropertyRowMapper.newInstance(Pessoa.class));
+	}
+
+	@Override
+	public void excluirPorCpf(String cdCpf) {
+		final MapSqlParameterSource parametros = new MapSqlParameterSource();
+		parametros.addValue("cdCpf", cdCpf);
+		parametros.addValue("inAtivo", false);
+		
+		npjt.update(excluirPorCdCpf, parametros);
+		
 	}
 }
