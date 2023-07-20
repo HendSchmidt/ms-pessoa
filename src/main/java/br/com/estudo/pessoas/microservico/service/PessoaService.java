@@ -1,7 +1,6 @@
 package br.com.estudo.pessoas.microservico.service;
 
 import java.util.List;
-import java.util.Map;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 
@@ -27,11 +26,11 @@ public interface PessoaService {
 	PessoaDto recuperarPorId(final Long id);
 
 	/**
-	 * Cadastra uma pessoa ou mais no sistema baseado no objeto pessoaDto e tambem em validações de regra de negocio.
+	 * Cadastra uma pessoa no sistema baseado no objeto pessoaDto e tambem em validações de regra de negocio.
 	 * 
 	 * @param dto
 	 * @return
 	 */
-	Map<String, List<String>> cadastrar(final List<PessoaDto> lsDto);
+	String cadastrar(final PessoaDto dto);
 
 }

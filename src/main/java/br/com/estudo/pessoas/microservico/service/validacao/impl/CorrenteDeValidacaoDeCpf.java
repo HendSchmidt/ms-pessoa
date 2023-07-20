@@ -1,8 +1,10 @@
 package br.com.estudo.pessoas.microservico.service.validacao.impl;
 
 import java.util.Map;
+import java.util.Objects;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
+import br.com.estudo.pessoas.microservico.util.PessoaException;
 
 /**
  * @author hendrix.schmidt
@@ -17,13 +19,14 @@ public abstract class CorrenteDeValidacaoDeCpf {
 		this.proximo = proximo;
 	}
 
-	public String validar(PessoaDto dto) {
+	public void validar(PessoaDto dto) {
 		final Map<Boolean, String> cpfValidado = valida(dto);
 		if(cpfValidado.containsKey(true)) {
-			return cpfValidado.get(true);
+			throw new PessoaException(cpfValidado.get(true));
 		}
-		
-		return proximo.validar(dto);
+
+		if(Objects.nonNull(proximo))
+			proximo.validar(dto);
 	}
 	
 	public abstract Map<Boolean, String> valida(PessoaDto dto);

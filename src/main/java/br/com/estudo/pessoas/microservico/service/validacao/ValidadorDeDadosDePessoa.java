@@ -12,5 +12,5 @@ public interface ValidadorDeDadosDePessoa {
 	 * 
 	 * @param dto
 	 */
-	String validar(PessoaDto dto);
+	void validar(PessoaDto dto);
 }

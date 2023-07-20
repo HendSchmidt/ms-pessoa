@@ -25,7 +25,7 @@ public class ValidaCpfDigitosIguais extends CorrenteDeValidacaoDeCpf {
 		final String REGEX_VALIDACAO_DIGITOS_IGUAIS_CPF = "(\\d)\\1{10}";
 		Map<Boolean, String> cpfValidado = new HashMap<>();
 		
-		cpfValidado.put(dto.getCdCpf().matches(REGEX_VALIDACAO_DIGITOS_IGUAIS_CPF), "CPF informado não deve possuir todo digitos iguais.");
+		cpfValidado.put(dto.getCdCpf().matches(REGEX_VALIDACAO_DIGITOS_IGUAIS_CPF), "CPF informado não deve possuir todo digitos iguais. CPF [" + dto.getCdCpf() + "]");
 		
 		return cpfValidado;
 	}

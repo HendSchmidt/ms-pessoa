@@ -1,9 +1,11 @@
 package br.com.estudo.pessoas.microservico.service.validacao.impl;
 
 import java.util.Map;
+import java.util.Objects;
 
 import br.com.estudo.pessoas.microservico.domain.jdbc.dto.pessoa.PessoaDto;
 import br.com.estudo.pessoas.microservico.repository.PessoaRepository;
+import br.com.estudo.pessoas.microservico.util.PessoaException;
 
 /**
  * @author hendrix.schmidt
@@ -18,13 +20,14 @@ public abstract class CorrenteDeValidacaoBO {
 		this.proximo = proximo;
 	}
 	
-	public String validar(PessoaDto dto,  PessoaRepository repository) {
+	public void validar(PessoaDto dto,  PessoaRepository repository) {
 		final Map<Boolean, String> pessoaValidada = valida(dto, repository);
 		if(pessoaValidada.containsKey(true)) {
-			return pessoaValidada.get(true);
+			throw new PessoaException(pessoaValidada.get(true));
 		}
-		
-		return proximo.validar(dto, repository);
+
+		if(Objects.nonNull(proximo))
+			proximo.validar(dto, repository);
 	}
 	
 	public abstract Map<Boolean, String> valida(PessoaDto dto,  PessoaRepository repository);
